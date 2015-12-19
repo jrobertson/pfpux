@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'pfpux'
-  s.version = '0.1.0'
+  s.version = '0.1.1'
   s.summary = 'Project File Publisher using XML (PFPuX) helps publish your project file directory to a static web location.'
   s.authors = ['James Robertson']
   s.files = Dir['lib/pfpux.rb']

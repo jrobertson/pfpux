@@ -4,6 +4,7 @@
 
 require 'rsync'
 require 'dir-to-xml'
+require 'fileutils'
 
 
 class PFPuX
@@ -13,30 +14,30 @@ class PFPuX
     directories = rsync dir, target
     
     directories.each do |dirpath, files|
-
+      
       dtx = DirToXML.new File.join(target, dirpath)
 
       files.each do |filename|
-
+        
         row = dtx.find_by_filename filename
         next unless row
 
         row[:description] = msg
       end
-      
-      dtx.save if files.any?
+            
+      dtx.save
 
     end
 
   end
-
+  
   private
 
   def rsync(dir, target)
     
     h = {}
 
-    Rsync.run(dir, target ,'-a') do |result|
+    Rsync.run(dir, target ,'-a --delete --exclude "dir.xml"') do |result|
 
       if result.success?
 
